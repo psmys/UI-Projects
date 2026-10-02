@@ -9,7 +9,7 @@ React/Vite frontend for the `myfirstproject` employee API.
 3. Copy `.env.example` to `.env` if the backend uses a different URL.
 4. Run `npm run dev`.
 
-During local development, Vite proxies `/api` to `http://localhost:8080`, avoiding browser CORS issues. The UI uses `/api/employees` for list, create, update, and delete operations.
+During local development, Vite proxies `/api` to `http://localhost:8080`, avoiding browser CORS issues. The UI uses `/api/employees` for list, update, and delete operations, and `/api/employees/bulk` to create multiple employees in one request.
 
 ## Project files
 
@@ -39,7 +39,7 @@ The browser loads `index.html`, which loads `src/main.jsx`. That file renders th
 
 ## Employee data flow
 
-`loadEmployees` sends a `GET` request to `/api/employees` and stores the returned JSON in state. `saveEmployee` sends a `POST` request to create an employee or a `PUT` request to update one. `deleteEmployee` sends a `DELETE` request. After a successful create, update, or delete, the app reloads the list from the backend.
+`loadEmployees` sends a `GET` request to `/api/employees` and stores the returned JSON in state. The add-people form sends a `POST` request to `/api/employees/bulk` with a JSON array of employee objects. Editing one employee sends a `PUT` request to `/api/employees/{id}` with a single employee object. `deleteEmployee` sends a `DELETE` request. After a successful create, update, or delete, the app reloads the list from the backend.
 
 The search and team filter work on the employee list already in state; they do not send a new API request for every keystroke. The form converts `salary` to a number before sending the employee data as JSON.
 
